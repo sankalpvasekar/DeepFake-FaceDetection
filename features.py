@@ -6,6 +6,7 @@ import tensorflow as tf
 
 model = tf.keras.models.load_model('./models/deepfake2.keras')
 
+# for face cropping
 def crop_face(img_arr):
     img_arr = cv2.cvtColor(img_arr,cv2.COLOR_BGR2RGB)
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -26,6 +27,7 @@ def crop_face(img_arr):
     
     return -1
 
+# classify image
 def image_classifier(img_path):
     img_arr = cv2.imread(img_path)
     face = crop_face(img_arr)
@@ -36,6 +38,7 @@ def image_classifier(img_path):
     res = np.argmax(pred)
     return int(res)
 
+# classify video
 def video_classifier(video_path):
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():

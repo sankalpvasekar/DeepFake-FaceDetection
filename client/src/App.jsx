@@ -31,7 +31,7 @@ const App = () => {
 		const file = e.target.files[0]
 		setSelectedFile(file)
 
-    	const reader = new FileReader()
+    const reader = new FileReader()
 		reader.onloadend = () => {
 			setVideoUrl(reader.result)
 		}
@@ -43,7 +43,7 @@ const App = () => {
 		const file = e.target.files[0]
 		setSelectedFile(file)
 
-    	const reader = new FileReader()
+    const reader = new FileReader()
 		reader.onloadend = () => {
 			setImageUrl(reader.result)
 		}
