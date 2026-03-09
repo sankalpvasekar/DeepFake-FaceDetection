@@ -89,3 +89,7 @@ client/yarn-error.log*
 *.temp
 temp/
 tmp/
+
+# Runtime files
+video.mp4
+image.jpg
