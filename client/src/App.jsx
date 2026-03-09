@@ -1,195 +1,355 @@
-import { useState } from "react"
+// import { useState } from "react";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+// import { BsUpload } from "react-icons/bs";
+// import { CiImageOn, CiVideoOn } from "react-icons/ci";
+// import { DNA } from 'react-loader-spinner';
+
+// import useHover from "./hooks/useHover";
+
+// const App = () => {
+
+//   const BASEURL = 'http://localhost:8000';
+
+//   const [videoUrl, setVideoUrl] = useState('');
+//   const [imageUrl, setImageUrl] = useState('');
+//   const [selectedFile, setSelectedFile] = useState(null);
+//   const [result, setResult] = useState('');
+
+//   const [loading, setLoading] = useState(false);
+
+//   const [isHover, hoverRef] = useHover();
+//   const [isHover2, hoverRef2] = useHover();
+
+//   const handleVideoUpload = (e) => {
+//     const file = e.target.files[0];
+//     setSelectedFile(file);
+
+//     const reader = new FileReader();
+//     reader.onloadend = () => {
+//       setVideoUrl(reader.result);
+//     };
+//     reader.readAsDataURL(file);
+//   };
+
+//   const handleImageUpload = (e) => {
+//     const file = e.target.files[0];
+//     setSelectedFile(file);
+
+//     const reader = new FileReader();
+//     reader.onloadend = () => {
+//       setImageUrl(reader.result);
+//     };
+//     reader.readAsDataURL(file);
+//   };
+
+//   const predictVideo = async () => {
+//     try {
+//       setLoading(true);
+
+//       const formData = new FormData();
+//       formData.append('video', selectedFile);
+
+//       const res = await fetch(`${BASEURL}/predictVideo`, {
+//         method: "POST",
+//         body: formData
+//       });
+
+//       const data = await res.json();
+//       setResult(data);
+//       setLoading(false);
+//       toast.success("Predicted Successfully");
+
+//     } catch (error) {
+//       toast.error("API Error!");
+//       setLoading(false);
+//       console.log(error);
+//     }
+//   };
+
+//   const predictImage = async () => {
+//     try {
+//       setLoading(true);
+
+//       const formData = new FormData();
+//       formData.append('image', selectedFile);
+
+//       const res = await fetch(`${BASEURL}/predictImage`, {
+//         method: "POST",
+//         body: formData
+//       });
+
+//       const data = await res.json();
+//       setResult(data);
+//       setLoading(false);
+//       toast.success("Predicted Successfully");
+
+//     } catch (error) {
+//       toast.error("API Error!");
+//       setLoading(false);
+//       console.log(error);
+//     }
+//   };
+
+//   const reset = () => {
+//     setVideoUrl('');
+//     setImageUrl('');
+//     setSelectedFile(null);
+//     setResult('');
+//   };
+
+//   return (
+//     <div>
+//       {!loading ? (
+//         <div className="min-h-screen min-w-full flex flex-col gap-6 items-center justify-center p-4 bg-[#0F172A]">
+          
+//           <div className="container">
+//             <h1 className="text-4xl font-bold mb-4">Deepfake Detection</h1>
+//             <p className="text-lg mb-8">Upload your video or image to detect deepfakes.</p>
+
+//             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
+//               <label ref={hoverRef} className="button video-btn cursor-pointer">
+//                 <div className="text-center text-xl">Upload Video</div>
+//                 <input type="file" accept="video/*" onChange={handleVideoUpload} className="hidden" />
+//                 {isHover ? <BsUpload size={70} /> : <CiVideoOn size={70} />}
+//               </label>
+
+//               <label ref={hoverRef2} className="button image-btn cursor-pointer">
+//                 <div className="text-center text-xl">Upload Image</div>
+//                 <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+//                 {isHover2 ? <BsUpload size={70} /> : <CiImageOn size={70} />}
+//               </label>
+//             </div>
+
+//             {videoUrl && (
+//               <video controls className="w-full rounded-2xl mb-6">
+//                 <source src={videoUrl} type="video/mp4" />
+//                 Your browser does not support the video tag.
+//               </video>
+//             )}
+
+//             {imageUrl && (
+//               <img src={imageUrl} alt="Uploaded" className="w-full rounded-2xl mb-6" />
+//             )}
+
+//             {result && (
+//               <div className={`result ${result.result === 0 ? 'result-real' : result.result === 1 ? 'result-fake' : 'result-no-face'}`}>
+//                 {result.result === 0 ? "Real" : result.result === 1 ? "Fake" : "No face detected"}
+//               </div>
+//             )}
+
+//             <div className="flex justify-center gap-4 mt-6">
+//               {videoUrl || imageUrl ? (
+//                 <button onClick={reset} className="button video-btn">Try Another</button>
+//               ) : null}
+//               {videoUrl && !result ? (
+//                 <button onClick={predictVideo} className="button image-btn">Predict Video!</button>
+//               ) : null}
+//               {imageUrl && !result ? (
+//                 <button onClick={predictImage} className="button image-btn">Predict Image!</button>
+//               ) : null}
+//             </div>
+//           </div>
+//         </div>
+//       ) : (
+//         <div className="min-h-screen min-w-full flex items-center justify-center bg-[#0F172A]">
+//           <DNA visible={true} height="200" width="200" ariaLabel="dna-loading" />
+//           <h1>Be patient, It may take a while...</h1>
+//         </div>
+//       )}
+//       <ToastContainer />
+//     </div>
+//   );
+// };
+
+// export default App;
+
+import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import { BsUpload } from "react-icons/bs";
-import { CiImageOn } from "react-icons/ci";
-import { CiVideoOn } from "react-icons/ci";
-import {DNA} from 'react-loader-spinner';
+import { CiImageOn, CiVideoOn } from "react-icons/ci";
+import { DNA } from 'react-loader-spinner';
 
 import useHover from "./hooks/useHover";
 
-
 const App = () => {
 
-	const BASEURL = 'http://localhost:8000'
+  const BASEURL = 'http://localhost:8000';
 
-	const [videoUrl,setVideoUrl] = useState('')
-	const [imageUrl,setImageUrl] = useState('')
-	const [selectedFile,setSelectedFile] = useState(null)
-	const [result,setResult] = useState('')
+  const [videoUrl, setVideoUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
 
-	const [loading,setLoading] = useState(false)
-	// const [error,setError] = useState(false)
+  const [isHover, hoverRef] = useHover();
+  const [isHover2, hoverRef2] = useHover();
 
-	const [isHover,hoverRef] = useHover();
-	const [isHover2,hoverRef2] = useHover();
+  const handleVideoUpload = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
 
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setVideoUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
-	const handleVideoUpload = (e)=>{
-		const file = e.target.files[0]
-		setSelectedFile(file)
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
 
-    const reader = new FileReader()
-		reader.onloadend = () => {
-			setVideoUrl(reader.result)
-		}
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
-		reader.readAsDataURL(file)
-	}
-	
-	const handleImageUpload = (e)=>{
-		const file = e.target.files[0]
-		setSelectedFile(file)
+  const predictVideo = async () => {
+    try {
+      setLoading(true);
 
-    const reader = new FileReader()
-		reader.onloadend = () => {
-			setImageUrl(reader.result)
-		}
+      const formData = new FormData();
+      formData.append('video', selectedFile);
 
-		reader.readAsDataURL(file)
-	}
+      const res = await fetch(`${BASEURL}/predictVideo`, {
+        method: "POST",
+        body: formData
+      });
 
-	const predictVideo = async () => {
-		try {
-			setLoading(true)
+      const data = await res.json();
+      setResult(data);
+      setLoading(false);
+      toast.success("Predicted Successfully");
 
-			const formData = new FormData()
-			formData.append('video', selectedFile)
+    } catch (error) {
+      toast.error("API Error!");
+      setLoading(false);
+      console.log(error);
+    }
+  };
 
-			const postHeader = {
-				method:"POST",
-				body:formData
-			}
+  const predictImage = async () => {
+    try {
+      setLoading(true);
 
-			const res = await fetch(`${BASEURL}/predictVideo`,postHeader)
-			const data = await res.json()
-			console.log(data);
-			setResult(data)
-			setLoading(false)
+      const formData = new FormData();
+      formData.append('image', selectedFile);
 
-			toast.success("Predicted Successfully")
+      const res = await fetch(`${BASEURL}/predictImage`, {
+        method: "POST",
+        body: formData
+      });
 
-		} catch (error) {
-			toast.error("API Error!")
-			setLoading(false)
-			console.log(error)
-		}
-	}
+      const data = await res.json();
+      setResult(data);
+      setLoading(false);
+      toast.success("Predicted Successfully");
 
-	const predictImage = async () => {
-		try {
-			setLoading(true)
+    } catch (error) {
+      toast.error("API Error!");
+      setLoading(false);
+      console.log(error);
+    }
+  };
 
-			const formData = new FormData()
-			formData.append('image', selectedFile)
+  const reset = () => {
+    setVideoUrl('');
+    setImageUrl('');
+    setSelectedFile(null);
+    setResult('');
+  };
 
-			const postHeader = {
-				method:"POST",
-				body:formData
-			}
+  return (
+    <div>
+      {!loading ? (
+        <div className="min-h-screen min-w-full flex flex-col gap-6 items-center justify-center p-4 bg-[#0F172A] text-white">
 
-			const res = await fetch(`${BASEURL}/predictImage`,postHeader)
-			const data = await res.json()
+          <div className="container text-center">
+            <h1 className="text-4xl font-bold mb-4">Deepfake Detection</h1>
+            <p className="text-lg mb-8">Upload your video or image to detect deepfakes.</p>
 
-			setResult(data)
-			setLoading(false)
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
+              <label ref={hoverRef} className="button video-btn cursor-pointer">
+                <div className="text-center text-xl">Upload Video</div>
+                <input type="file" accept="video/*" onChange={handleVideoUpload} className="hidden" />
+                {isHover ? <BsUpload size={70} /> : <CiVideoOn size={70} />}
+              </label>
 
-			toast.success("Predicted Successfully")
+              <label ref={hoverRef2} className="button image-btn cursor-pointer">
+                <div className="text-center text-xl">Upload Image</div>
+                <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                {isHover2 ? <BsUpload size={70} /> : <CiImageOn size={70} />}
+              </label>
+            </div>
 
-		} catch (error) {
-			toast.error("API Error!")
-			setLoading(false)
-			console.log(error)
-		}
-	}
+            {/* Display Video or Image */}
+            {videoUrl && (
+              <video controls className="w-full rounded-2xl mb-6">
+                <source src={videoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
 
-	const reset = ()=>{
-		setVideoUrl('')
-		setImageUrl('')
-		setSelectedFile(null)
-		setResult('')
-	}
+            {imageUrl && (
+              <img src={imageUrl} alt="Uploaded" className="w-full rounded-2xl mb-6" />
+            )}
 
-	return (
-		<div>
-			{!loading ? 
-			<div className="min-h-screen min-w-full flex flex-col gap-3 items-center justify-center p-4 bg-[#EBEEF5]">
+            {/* Enhanced Result Display */}
+            {result && (
+              <div className="text-center my-8">
+                <div
+                  className={`text-7xl font-extrabold ${
+                    result.result === 0 ? 'text-green-400' : result.result === 1 ? 'text-red-400' : 'text-yellow-400'
+                  } animate-pulse`}
+                >
+                  {result.result === 0 ? "Real" : result.result === 1 ? "Fake" : "No face detected"}
+                </div>
 
-				<div className="text-2xl sm:text-4xl text-center absolute top-10 inset-x-0">Deepfake Detection</div>
+                <p className="text-lg mt-4">
+                  {result.result === 0
+                    ? "✅ This appears to be a genuine media file."
+                    : result.result === 1
+                    ? "⚠️ Warning! This might be a deepfake."
+                    : "⚠️ No face detected, please try another media."}
+                </p>
+              </div>
+            )}
 
-				{!videoUrl && !imageUrl ? <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-					<div className="size-52">
-						<label ref={hoverRef} className="flex flex-col-reverse items-center justify-center gap-3 size-52 rounded-xl p-3 border-2 border-black/70 border-dashed cursor-pointer hover:scale-105 duration-150">
-							<div className="text-center text-3xl">Upload Video</div>
-							<div>
-								{!isHover ? <CiVideoOn size={70}/> : <BsUpload size={70}/>}
-							</div>
-							<input type="file" accept="video/*" onChange={handleVideoUpload} className="hidden"/>
-						</label>
-					</div>
-
-					<div className="size-52">
-						<label ref={hoverRef2} className="flex flex-col-reverse items-center justify-center gap-3 size-52 rounded-xl p-3 border-2 border-black/70 border-dashed cursor-pointer hover:scale-105 duration-150">
-							<div className="text-center text-3xl">Upload Image</div>
-							<div>
-								{!isHover2 ? <CiImageOn size={70}/> : <BsUpload size={70}/>}
-								{/* <MdOutlineCloudUpload size={70}/> */}
-							</div>
-							<input type="file" accept="image/*" onChange={handleImageUpload} className="hidden"/>
-						</label>
-					</div>
-				</div> : 
-				<div className="hidden">
-					<div ref={hoverRef}/>
-					<div ref={hoverRef2}/>
-				</div>}
-
-				{videoUrl && (
-					<div className="w-11/12 sm:w-5/6 md:w-4/5 lg:w-3/5 xl:w-1/2 mt-32 flex items-center justify-center">
-						<video controls className="rounded-2xl">label
-							<source src={videoUrl} type="video/mp4" />
-							Your browser does not support the video tag.
-						</video>
-					</div>
-				)}
-
-				{imageUrl && (
-					<div className="w-11/12 sm:w-5/6 md:w-4/5 lg:w-3/5 xl:w-1/2 mt-32 flex items-center justify-center">
-						<img src={imageUrl} alt="" className="rounded-2xl"/>
-					</div>
-				)}
-
-				{result && (
-					result.result==0 ? <div className="text-2xl flex items-center gap-2">Prediction Result: <span className="font-bold text-green-500">Real</span></div> : 
-					(result.result==1 ? <div className="text-2xl flex items-center gap-2">Prediction Result: <span className="font-bold text-red-500">Fake</span></div> : 
-					<div className="text-2xl flex items-center gap-2">Prediction Result: <span className="font-bold text-neutral-700">No face Detected</span></div>)
-				)}
-
-				<div className="flex items-center justify-center gap-2">
-					{videoUrl || imageUrl ? <button onClick={reset} className="rounded-xl p-3 border-2 border-black/70 border-dashed hover:scale-105 duration-150">Try another</button> : null}
-
-					{videoUrl && !result ? <button onClick={predictVideo} className="rounded-xl p-3 border-2 border-black/70 border-dashed hover:scale-105 duration-150">Predict Video!</button> : null}
-
-					{imageUrl && !result ? <button onClick={predictImage} className="rounded-xl p-3 border-2 border-black/70 border-dashed hover:scale-105 duration-150">Predict image!</button> : null}
-				</div>
-
-			</div> : 
-			<div className="min-h-screen min-w-full flex flex-col items-center justify-center bg-[#EBEEF5]">
-				<DNA
-					visible={true}
-					height="200"
-					width="200"
-					ariaLabel="dna-loading"
-					wrapperStyle={{}}
-					wrapperClass="dna-wrapper"
-				/>
-				<h1>Be patient, It may take a while...</h1>
-			</div>}
-			<ToastContainer/>
-		</div>
-	)
-}
+            <div className="flex justify-center gap-4 mt-6">
+              {videoUrl || imageUrl ? (
+                <button onClick={reset} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                  Try Another
+                </button>
+              ) : null}
+              {videoUrl && !result ? (
+                <button onClick={predictVideo} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                  Predict Video!
+                </button>
+              ) : null}
+              {imageUrl && !result ? (
+                <button onClick={predictImage} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                  Predict Image!
+                </button>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="min-h-screen min-w-full flex flex-col items-center justify-center bg-[#0F172A] text-white">
+          <DNA visible={true} height="200" width="200" ariaLabel="dna-loading" />
+          <h1 className="mt-4">Be patient, It may take a while...</h1>
+        </div>
+      )}
+      <ToastContainer />
+    </div>
+  );
+};
 
 export default App;
+

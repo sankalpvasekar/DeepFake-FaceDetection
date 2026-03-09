@@ -19,8 +19,6 @@ app.add_middleware(
 def home():
     return JSONResponse(content='API is running')
 
-
-# video analysis
 @app.post("/predictVideo")
 async def predict_video(video: UploadFile = File(...)):
 
@@ -37,7 +35,6 @@ async def predict_video(video: UploadFile = File(...)):
         return JSONResponse(content={"message":"Error in reading Video Data"})
     
 
-# image analysis
 @app.post("/predictImage")
 async def predict_image(image: UploadFile = File(...)):
 

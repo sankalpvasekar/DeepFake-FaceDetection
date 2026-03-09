@@ -2,10 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+* {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
 }
 *::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+  display: none;  /* Safari and Chrome */
+}
+
+body {
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: linear-gradient(135deg, #1E40AF, #9333EA);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  width: 90%;
+  max-width: 1100px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.container:hover {
+  transform: translateY(-10px);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 30px;
+  border-radius: 15px;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.video-btn {
+  background: linear-gradient(135deg, #6B46C1, #9F7AEA);
+}
+
+.image-btn {
+  background: linear-gradient(135deg, #2563EB, #3B82F6);
+}
+
+.upload-icon {
+  font-size: 70px;
+}
+
+.result {
+  font-size: 28px;
+  font-weight: bold;
+  padding: 10px 25px;
+  border-radius: 12px;
+}
+
+.result-real {
+  color: #22c55e;
+  background: #14532d;
+}
+
+.result-fake {
+  color: #ef4444;
+  background: #7f1d1d;
+}
+
+.result-no-face {
+  color: #d1d5db;
+  background: #374151;
 }
