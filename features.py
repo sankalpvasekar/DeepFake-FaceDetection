@@ -4,7 +4,13 @@ import tensorflow as tf
 # from tensorflow.keras.preprocessing.image import img_to_array, load_img
 # from tensorflow.keras.utils import array_to_img
 
-model = tf.keras.models.load_model('./models/deepfake2.keras')
+model = None
+
+def load_model():
+    global model
+    if model is None:
+        model = tf.keras.models.load_model('./models/deepfake2.keras')
+    return model
 
 # for face cropping
 def crop_face(img_arr):
@@ -34,6 +40,7 @@ def image_classifier(img_path):
     if not isinstance(face, np.ndarray):
         return -1
     input = np.expand_dims(face,axis=0)
+    model = load_model()
     pred = model.predict(input)
     res = np.argmax(pred)
     return int(res)
@@ -66,6 +73,7 @@ def video_classifier(video_path):
     
         count+=1
         data = np.expand_dims(face,axis=0)
+        model = load_model()
         pred = np.argmax(model.predict(data))
         print(pred)
 
