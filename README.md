@@ -1,6 +1,6 @@
 # DeepFake Face Detection
 
-## 🎥 YouTube Demo lcick on below👇
+## 🎥 YouTube Demo link on below👇
 
 [![Watch the video](https://img.youtube.com/vi/AmRRDv_luYw/0.jpg)](https://youtu.be/AmRRDv_luYw)
 
