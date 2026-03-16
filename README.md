@@ -1,7 +1,9 @@
 # DeepFake Face Detection
 
 ## 🎥 YouTube Demo
-(Add YouTube video link here after upload)
+## 🎥 Project Demo
+
+[![Watch the video](https://img.youtube.com/vi/AmRRDv_luYw/0.jpg)](https://youtu.be/AmRRDv_luYw)
 
 ## Project Description
 A deepfake detection system that uses machine learning to identify fake images and videos. The system analyzes facial features and patterns to determine whether media content is authentic or manipulated, helping combat the spread of misinformation and synthetic media.
